@@ -1,6 +1,6 @@
 if SHIELD_PRONTO
 
-config ZMK_KEYBOARD_PRONTO
+config ZMK_KEYBOARD_NAME
     default "pronto"
 
 endif
