@@ -19,9 +19,12 @@
     default_transform: keymap_transform0 {
         compatible = "zmk,matrix-transform";
         columns = <1>;
-        rows = <1>;
+        rows = <4>;
         map = <
             RC(0,0)
+            RC(0,1)
+            RC(0,2)
+            RC(0,3)
             >;
     };
 
@@ -29,7 +32,11 @@
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
         input-gpios
-            = <&pro_micro 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+            = <&pro_micro 0 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)
+            , <&pro_micro 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 5 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+    ;
     };
 
 };
