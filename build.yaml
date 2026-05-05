@@ -22,4 +22,6 @@ include:
 #  - board: nice_nano
 #    shield: pronto
   - board: nice_nano
-    shield: pronto_split
+    shield: pronto_left
+  - board: nice_nano
+    shield: pronto_right
