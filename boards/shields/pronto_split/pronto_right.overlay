@@ -2,10 +2,9 @@
 
 
 
-/{
 
-    &default_transform { // Offset of 2 because the left side has 3 columns
+
+&default_transform { // Offset of 2 because the left side has 3 columns
     col-offset = <2>;
-    };
+};
     
-}
