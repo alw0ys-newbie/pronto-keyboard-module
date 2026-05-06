@@ -1,4 +1,4 @@
-name: zmk-keyboard-pronto
+name: zmk-keyboard-pronto_split
 build:
   settings:
     board_root: .
