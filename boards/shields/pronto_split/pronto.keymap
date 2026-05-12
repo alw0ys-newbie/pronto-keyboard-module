@@ -7,13 +7,13 @@
 
         default_layer { // Layer 0
             // -------------------------------------
-            // |     A     |    Z    |    E    |    R    | 
+            // ||     A     |    Z    ||          ||     1     |    2    ||
+            // ||    E      |    R    ||          ||     3     |    4    ||
+
 
             bindings = <
-                &kp A
-                &kp Z
-                &kp E
-                &kp R
+                &kp A   &kp Z       &kp N1   &kp N2 
+                &kp E   &kp R       &kp N3   &kp N4
             >;
         };
     };

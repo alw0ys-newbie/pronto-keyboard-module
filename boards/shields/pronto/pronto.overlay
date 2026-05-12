@@ -1,11 +1,10 @@
 #include <dt-bindings/zmk/matrix_transform.h>
 
 
-
 / {
     
     chosen {
-        zmk,physical-layout = &physical_layout0;
+        zmk,physical-layout = &physical_layout1;
     };
 
     physical_layout0: physical_layout_0 {
@@ -15,22 +14,54 @@
             transform = <&default_transform>;
     };
 
+    physical_layout1: physical_layout1 {
+        compatible = "zmk,physical-layout";
+        display-name = "Alt Layout";
+        kscan = <&kscan1>;
+        transform = <&alt_transform>;
+    };
 
     default_transform: keymap_transform0 {
         compatible = "zmk,matrix-transform";
-        columns = <1>;
+        columns = <4>;
         rows = <1>;
         map = <
-            RC(0,0)
+            RC(0,0) RC(0,1) RC(0,2) RC(0,3)
             >;
     };
 
-    kscan0: kscan {
+    alt_transform: keymap_transform1 {
+        compatible = "zmk,matrix-transform";
+        columns = <2>;
+        rows = <2>;
+        map = <
+            RC(0,0) RC(0,1)
+            RC(1,0) RC(1,1)
+            >;
+    };
+
+    kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
         input-gpios
-            = <&pro_micro 4 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+            = <&pro_micro 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)
+               &pro_micro 16 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)
+               &pro_micro 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)
+               &pro_micro 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 
+    kscan1: kscan1 {
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source;
+        diode-direction = "col2row";
+        col-gpios
+            = <&pro_micro 2 GPIO_ACTIVE_HIGH>
+            , <&pro_micro 3 GPIO_ACTIVE_HIGH>
+            ;
+        row-gpios
+            = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            ;
+    };
 };
 
