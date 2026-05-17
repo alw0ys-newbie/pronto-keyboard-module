@@ -48,12 +48,12 @@
         compatible = "zmk,kscan-sideband-behaviors";
         kscan = <&wakeup_scan>;
         auto-enable;
-
-        soft_off {
+    
+        /* soft_off {
             column = <0>;
             row = <0>;
             bindings = <&hw_soft_off>;
-        };
+        }; */
     };
 
     // Définition des comportements
