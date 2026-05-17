@@ -52,16 +52,58 @@
 
     kscan1: kscan1 {
         compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source;
+        \\wakeup-source;
         diode-direction = "col2row";
         col-gpios
-            = <&pro_micro 2 GPIO_ACTIVE_HIGH>
-            , <&pro_micro 3 GPIO_ACTIVE_HIGH>
+            = <&pro_micro 4 GPIO_ACTIVE_HIGH>
+            , <&pro_micro 5 GPIO_ACTIVE_HIGH>
             ;
         row-gpios
-            = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
-            , <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            = <&pro_micro 20 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&pro_micro 19 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
             ;
+    };
+
+
+    // ==========================================
+    // AJOUTS POUR LE SOFT OFF
+    // ==========================================
+
+    // 1. Un kscan dédié uniquement à ton bouton physique de Soft Off
+    // Ici configuré sur la broche Pro Micro 6, reliée au GND
+    soft_off_scan: soft_off_scan {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        input-gpios = <&pro_micro 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
+
+    // 2. Le Sideband Behavior qui fait le pont entre le clic physique et l'extinction
+    side_band_behavior_triggers: side_band_behavior_triggers {
+        compatible = "zmk,kscan-sideband-behaviors";
+        kscan = <&soft_off_scan>;
+        auto-enable;
+
+        soft_off {
+            column = <0>;
+            row = <0>;
+            bindings = <&hw_soft_off>;
+        };
+    };
+
+    // 3. Définition du comportement de mise hors tension logicielle
+    behaviors {
+        hw_soft_off: hw_soft_off {
+            compatible = "zmk,behavior-soft-off";
+            #binding-cells = <0>;
+            split-peripheral-off-on-press; 
+            hold-time-ms = <2000>; // Sécurité : il faut maintenir le bouton 2 secondes pour éteindre
+        };
+    };
+
+    // 4. Déclaration officielle de la source de réveil pour ZMK
+    soft_off_wakers {
+        compatible = "zmk,soft-off-wakeup-sources";
+        wakeup-sources = <&soft_off_scan>;
     };
 };
 
