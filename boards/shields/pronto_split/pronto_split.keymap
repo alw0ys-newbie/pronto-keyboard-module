@@ -6,9 +6,12 @@
         compatible = "zmk,keymap";
 
         default_layer { // Layer 0
-            // -------------------------------------
-            // ||     A     |    Z    ||          ||     1     |    2    ||
-            // ||    E      |    R    ||          ||     3     |    4    ||
+            
+            // ||Tab| ( | - | \ |lay||       || ) | = | " | mod | del ||
+            // || A | Z | E | R | T ||       || Y | U | I | O | P ||
+            // || Q | S | D | F | G ||       || H | J | K | L | M ||
+            // || ↑ | W | X | C | V ||       || B | N | , | . | ^ ||
+            //         || ctr | spc ||       || ent | alt ||
 
 
             bindings = <
