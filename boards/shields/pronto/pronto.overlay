@@ -1,17 +1,16 @@
 #include <dt-bindings/zmk/matrix_transform.h>
-
+#include <dt-bindings/zmk/outputs.h> // 🟢 Requis pour le comportement de gestion de l'alimentation
 
 / {
-    
     chosen {
         zmk,physical-layout = &physical_layout1;
     };
 
     physical_layout0: physical_layout_0 {
-            compatible = "zmk,physical-layout";
-            display-name = "Default Layout";
-            kscan = <&kscan0>;
-            transform = <&default_transform>;
+        compatible = "zmk,physical-layout";
+        display-name = "Default Layout";
+        kscan = <&kscan0>;
+        transform = <&default_transform>;
     };
 
     physical_layout1: physical_layout1 {
@@ -43,16 +42,18 @@
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
+        // 🟢 CORRECTION SYNTAXE : Les crochets enveloppent chaque broche individuellement
         input-gpios
-            = <&pro_micro 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)
-               , &pro_micro 16 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)
-               , &pro_micro 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)
-               , &pro_micro 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+            = <&pro_micro 10 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 16 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 14 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            , <&pro_micro 15 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>
+            ;
     };
 
     kscan1: kscan1 {
         compatible = "zmk,kscan-gpio-matrix";
-        //wakeup-source;
+        // wakeup-source; // Désactivé pour que seules les sources dédiées réveillent le contrôleur
         diode-direction = "col2row";
         col-gpios
             = <&pro_micro 4 GPIO_ACTIVE_HIGH>
@@ -64,20 +65,18 @@
             ;
     };
 
-    /*
     // ==========================================
-    // AJOUTS POUR LE SOFT OFF
+    // 🟢 ACCÈS ET ACTIVATION DU SOFT OFF
     // ==========================================
 
-    // 1. Un kscan dédié uniquement à ton bouton physique de Soft Off
-    // Ici configuré sur la broche Pro Micro 6, reliée au GND
+    // 1. Kscan dédié uniquement au bouton physique de Soft Off (Broche 6 au GND)
     soft_off_scan: soft_off_scan {
         compatible = "zmk,kscan-gpio-direct";
         wakeup-source;
         input-gpios = <&pro_micro 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
     };
 
-    // 2. Le Sideband Behavior qui fait le pont entre le clic physique et l'extinction
+    // 2. Déclencheur sideband pour associer le kscan matériel au comportement ZMK
     side_band_behavior_triggers: side_band_behavior_triggers {
         compatible = "zmk,kscan-sideband-behaviors";
         kscan = <&soft_off_scan>;
@@ -90,20 +89,19 @@
         };
     };
 
-    // 3. Définition du comportement de mise hors tension logicielle
+    // 3. Définition du comportement de coupure logicielle (maintien de 2 secondes)
     behaviors {
         hw_soft_off: hw_soft_off {
             compatible = "zmk,behavior-soft-off";
             #binding-cells = <0>;
             split-peripheral-off-on-press; 
-            hold-time-ms = <2000>; // Sécurité : il faut maintenir le bouton 2 secondes pour éteindre
+            hold-time-ms = <2000>; 
         };
     };
 
-    // 4. Déclaration officielle de la source de réveil pour ZMK
+    // 4. Source principale pour sortir du mode Soft Off
     soft_off_wakers {
         compatible = "zmk,soft-off-wakeup-sources";
         wakeup-sources = <&soft_off_scan>;
-    }; */
+    };
 };
-
