@@ -22,7 +22,7 @@
             // |     Q/switch layer    |    S    |    D    |    F    | 
 
             bindings = <
-                &lt 0 Q
+                &kp Q
                 &kp S
                 &kp D
                 &kp F
