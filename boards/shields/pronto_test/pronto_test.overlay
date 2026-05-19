@@ -1,0 +1,81 @@
+#include <dt-bindings/zmk/matrix_transform.h>
+#include <dt-bindings/zmk/outputs.h> // 🟢 Requis pour le comportement de gestion de l'alimentation
+
+/ {
+    chosen {
+        zmk,physical-layout = &physical_layout_0;
+    };
+
+    physical_layout0: physical_layout_0 {
+        compatible = "zmk,physical-layout";
+        display-name = "Default Layout";
+        kscan = <&kscan0>;
+        transform = <&default_transform>;
+    };
+
+    
+
+    default_transform: keymap_transform0 {
+        compatible = "zmk,matrix-transform";
+        columns = <2>;
+        rows = <2>;
+        map = <
+            RC(0,0) RC(0,1)
+            RC(1,0) RC(1,1)
+            >;
+    };
+
+    kscan0: kscan0 {
+        compatible = "zmk,kscan-gpio-matrix";
+        wakeup-source; // Désactivé pour que seules les sources dédiées réveillent le contrôleur
+        diode-direction = "col2row";
+        col-gpios
+            = <&pro_micro 20 GPIO_ACTIVE_HIGH>
+            , <&pro_micro 19 GPIO_ACTIVE_HIGH>
+            ;
+        row-gpios
+            = <&pro_micro 4 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            , <&pro_micro 5 (GPIO_ACTIVE_HIGH | GPIO_PULL_DOWN)>
+            ;
+    };
+    /*
+    // ==========================================
+    // 🟢 ACCÈS ET ACTIVATION DU SOFT OFF
+    // ==========================================
+
+    // 1. Kscan dédié uniquement au bouton physique de Soft Off (Broche 6 au GND)
+    soft_off_scan: soft_off_scan {
+        compatible = "zmk,kscan-gpio-direct";
+        wakeup-source;
+        input-gpios = <&pro_micro 6 (GPIO_ACTIVE_LOW | GPIO_PULL_UP)>;
+    };
+
+    // 2. Déclencheur sideband pour associer le kscan matériel au comportement ZMK
+    side_band_behavior_triggers: side_band_behavior_triggers {
+        compatible = "zmk,kscan-sideband-behaviors";
+        kscan = <&soft_off_scan>;
+        auto-enable;
+
+        soft_off {
+            column = <0>;
+            row = <0>;
+            bindings = <&hw_soft_off>;
+        };
+    };
+
+    // 3. Définition du comportement de coupure logicielle (maintien de 2 secondes)
+    behaviors {
+        hw_soft_off: hw_soft_off {
+            compatible = "zmk,behavior-soft-off";
+            #binding-cells = <0>;
+            split-peripheral-off-on-press; 
+            hold-time-ms = <2000>; 
+        };
+    };
+
+    // 4. Source principale pour sortir du mode Soft Off
+    soft_off_wakers {
+        compatible = "zmk,soft-off-wakeup-sources";
+        wakeup-sources = <&soft_off_scan>;
+    }; */
+};
