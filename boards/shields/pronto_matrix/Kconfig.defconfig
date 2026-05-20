@@ -1,6 +1,6 @@
-if SHIELD_PRONTO_TEST
+if SHIELD_PRONTO_MATRIX
 
 config ZMK_KEYBOARD_NAME
-    default "pronto_test"
+    default "Pronto Matrix"
 
 endif
