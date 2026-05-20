@@ -22,7 +22,9 @@ include:
   # - board: nice_nano
   #   shield: pronto_matrix
   - board: nice_nano
-    shield: pronto_double
+    shield: pronto_double_left
+  - board: nice_nano
+    shield: pronto_double_right
   # - board: nice_nano
   #   shield: pronto_direct
 #  - board: nice_nano
