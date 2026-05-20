@@ -1,0 +1,6 @@
+config SHIELD_PRONTO_DOUBLE_LEFT
+    def_bool $(shields_list_contains,pronto_double_left)
+
+
+config SHIELD_PRONTO_DOUBLE_RIGHT
+    def_bool $(shields_list_contains,pronto_double_right)
