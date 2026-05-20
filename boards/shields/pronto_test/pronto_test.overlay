@@ -28,7 +28,7 @@
 
     kscan0: kscan0 {
         compatible = "zmk,kscan-gpio-matrix";
-        wakeup-source; // Désactivé pour que seules les sources dédiées réveillent le contrôleur
+        wakeup-source;
         diode-direction = "col2row";
         col-gpios
             = <&pro_micro 20 GPIO_ACTIVE_HIGH>
