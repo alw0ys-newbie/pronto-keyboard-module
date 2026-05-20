@@ -9,16 +9,9 @@
             display-name = "Base";
             bindings = <
                 &kp A    &kp Z
-                &kp E    &lt 1 R
+                &kp E    &kp R
             >;
         };
 
-        top_layer { // Layer 1
-            display-name = "Top";
-            bindings = <
-                &kp Q  &kp S
-                &kp D    &kp F
-            >;
-        };
     };
  };
