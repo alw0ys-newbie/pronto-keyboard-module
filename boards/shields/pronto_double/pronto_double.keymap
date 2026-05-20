@@ -18,7 +18,7 @@
             >;
         };
 
-        default_layer { // Layer 1
+        top_layer { // Layer 1
             display-name = "Top";
             // -------------------------------------
             // ||     Q     |    S    ||          ||     5     |    6    ||
