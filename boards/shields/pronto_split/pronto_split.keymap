@@ -31,7 +31,7 @@
                &kp B &kp N &none &none &none        &none &none &none &none &none
                             &kp ENTER &kp SPACE     &kp ENTER &kp LALT
             >;
-        }
+        };
 
         number_layer { // Layer 2
             
